@@ -1,7 +1,7 @@
 
 # 📦 Inventory Management System  
 
-![Inventory Management Banner](Frontend_Inventory_Managment/public/banner.png)
+![Inventory Management Banner](https://github.com/mohitsinghgarry/Inventory_Management/raw/main/Frontend_Inventory_Managment/public/banner.png)
 
 ### **Manage your inventory effortlessly while providing customers a seamless shopping experience!**  
 
