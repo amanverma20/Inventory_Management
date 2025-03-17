@@ -47,16 +47,17 @@ Inventory_Management/
 ## 🖼️ Screenshots 
 
 # 📦 Login    
-![Login Page](Frontend_Inventory_Managment/public/login.png)
+![Login Page](https://github.com/mohitsinghgarry/Inventory_Management/raw/main/Frontend_Inventory_Managment/public/login.png)
 
 # 📦 Signup  
-![Signup page](Frontend_Inventory_Managment/public/signup.png)
+![Signup page](https://github.com/mohitsinghgarry/Inventory_Management/raw/main/Frontend_Inventory_Managment/public/signup.png)
 
 
 # 📦 ADMIN DASHBOARD  
 
 ### Business Dashboard  
-![Business Dashboard](Frontend_Inventory_Managment/public/dashboard-admin.png)
+![Business Dashboard](![image](https://github.com/user-attachments/assets/5088849b-03dc-4b2f-bf66-2cc8b834ef88)
+)
 
 ### Orders Listing  
 ![Orders Listing](Frontend_Inventory_Managment/public/allorders-admin.png)
