@@ -56,14 +56,13 @@ Inventory_Management/
 # 📦 ADMIN DASHBOARD  
 
 ### Business Dashboard  
-![Business Dashboard](![image](https://github.com/user-attachments/assets/5088849b-03dc-4b2f-bf66-2cc8b834ef88)
-)
+![Business Dashboard](https://github.com/mohitsinghgarry/Inventory_Management/raw/main/Frontend_Inventory_Managment/public/dashboard-admin.png)
 
 ### Orders Listing  
-![Orders Listing](Frontend_Inventory_Managment/public/allorders-admin.png)
+![Orders Listing](https://github.com/mohitsinghgarry/Inventory_Management/raw/main/Frontend_Inventory_Managment/public/allorders-admin.png)
 
 ### Products Listing  
-![Orders Listing](Frontend_Inventory_Managment/public/productlist-admin.png)
+![Orders Listing](https://github.com/mohitsinghgarry/Inventory_Management/raw/main/Frontend_Inventory_Managment/public/productlist-admin.png)
 
 
 
@@ -71,16 +70,16 @@ Inventory_Management/
 # 📦 USER DASHBOARD  
 
 ### User Home  
-![Business Dashboard](Frontend_Inventory_Managment/public/home-userportal.png)
+![Business Dashboard](https://github.com/mohitsinghgarry/Inventory_Management/raw/main/Frontend_Inventory_Managment/public/home-userportal.png)
 
 ### Product Listing  
-![Product Listing](Frontend_Inventory_Managment/public/product-user.png)
+![Product Listing](https://github.com/mohitsinghgarry/Inventory_Management/raw/main/Frontend_Inventory_Managment/public/product-user.png)
 
 ### Payment Page  
-![Payment Page](Frontend_Inventory_Managment/public/payment.png)
+![Payment Page](https://github.com/mohitsinghgarry/Inventory_Management/raw/main/Frontend_Inventory_Managment/public/payment.png)
 
 ### Orders   
-![Orders Page](Frontend_Inventory_Managment/public/orders.png)
+![Orders Page](https://github.com/mohitsinghgarry/Inventory_Management/raw/main/Frontend_Inventory_Managment/public/orders.png)
 
 ---
 
