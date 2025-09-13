@@ -1,7 +1,7 @@
-import React, { useState, useContext } from 'react';
+import { useContext, useState } from 'react';
 import { useLocation } from 'react-router-dom';
-import '../CustomerPages_css/Order.css';
 import OrdersContext from '../ContextApi/OrderContext';
+import '../CustomerPages_css/Order.css';
 import { loadRazorpayScript } from '../utils/rzpUtil';
 
 const OrderForm = () => {
@@ -64,7 +64,7 @@ const OrderForm = () => {
       
             // Now that we have the order, initiate Razorpay payment
             const razorpayOptions = {
-              key: process.env.RZP_KEY_ID,
+              key: process.env.REACT_APP_RZP_KEY_ID,
               amount: totalPrice * 100,
               currency: 'INR',
               name: 'InventryPro',
@@ -75,26 +75,28 @@ const OrderForm = () => {
                 fetch('http://localhost:3000/api/payment/verify-payment', {
                   method: 'POST',
                   headers: {
-                    'Content-Type': 'application/json',
+                  'Content-Type': 'application/json',
                   },
                   body: JSON.stringify({
-                    razorpay_order_id: response.razorpay_order_id,
-                    razorpay_payment_id: response.razorpay_payment_id,
-                    razorpay_signature: response.razorpay_signature,
+                  razorpay_order_id: response.razorpay_order_id,
+                  razorpay_payment_id: response.razorpay_payment_id,
+                  razorpay_signature: response.razorpay_signature,
                   }),
                 })
                   .then((res) => res.json())
                   .then((data) => {
-                    if (data.success) {
-                        // Payment is successful, submit the order to the backend
-                        submitOrder();
-                        alert('Payment Successful! Order has been placed.');
-                    } else {
-                      alert('Payment verification failed.');
-                    }
+                  if (data.success) {
+                    // Payment is successful, submit the order to the backend
+                    submitOrder();
+                    console.log('Payment Successful! Order has been placed.');
+                  } else {
+                    console.error('Payment verification failed.');
+                    setError('Payment verification failed. Please try again.');
+                  }
                   })
                   .catch((err) => {
-                    alert('Error verifying payment: ' + err.message);
+                  console.error('Error verifying payment:', err);
+                  setError('Error verifying payment: ' + err.message);
                   });
               },
               prefill: {

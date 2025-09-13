@@ -1,5 +1,5 @@
-import React, { useState } from 'react';
-import { Outlet, NavLink } from 'react-router-dom';
+import { useState } from 'react';
+import { NavLink, Outlet } from 'react-router-dom';
 import '../Login_signup_css/User.css';
 import { useUser } from './UserContext';
 
@@ -35,6 +35,14 @@ function Admin() {
                             className={({ isActive }) => (isActive ? 'admin-active-link' : 'admin-link')}
                         >
                             DASHBOARD
+                        </NavLink>
+                    </li>
+                    <li className="admin-menu-item">
+                        <NavLink
+                            to="interactive-dashboard"
+                            className={({ isActive }) => (isActive ? 'admin-active-link' : 'admin-link')}
+                        >
+                            INTERACTIVE DASHBOARD
                         </NavLink>
                     </li>
                     <li className="admin-menu-item">

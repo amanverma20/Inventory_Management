@@ -1,35 +1,36 @@
-import { BrowserRouter as Router, Route, Routes } from "react-router-dom";
+import { Route, BrowserRouter as Router, Routes } from "react-router-dom";
 import { ToastContainer } from "react-toastify";
 import "react-toastify/dist/ReactToastify.css"; // Import toast styles
-import SignUp from "./Login _signup_pages/SignUp";
-import VerifyOTP from "./Login _signup_pages/VerifyOTP";
-import LandingPage from "./Login _signup_pages/LandingPage";
-import Login from "./Login _signup_pages/Login";
-import Customer from "./Login _signup_pages/Customer";
-import ForgotPassword from "./Login _signup_pages/ForgotPassword";
-import ResetPassword from "./Login _signup_pages/PasswordReset";
-import Admin from "./Login _signup_pages/Admin";
-import { UserProvider } from "./Login _signup_pages/UserContext";
+import AddProduct from "./AdminPages/AddProduct";
 import DashBoard from "./AdminPages/DashBoard";
-import Product from "./AdminPages/Product";
 import Order from "./AdminPages/Order";
-import Stock from "./AdminPages/Stock";
+import Product from "./AdminPages/Product";
 import Sales from "./AdminPages/Sales";
-import ProductPage from "./CustomerPages/ProductPage";
-import HomePage from "./CustomerPages/HomePage";
+import Stock from "./AdminPages/Stock";
+import UpdateProduct from "./AdminPages/UpdateProduct";
+import { CartProvider } from "./ContextApi/CartContext";
+import { CountsProvider } from "./ContextApi/CountsContext";
+import { CustomerProvider } from "./ContextApi/CustomerContext";
+import { OrdersProvider } from "./ContextApi/OrderContext";
+import Account from "./CustomerPages/Account";
 import Cart from "./CustomerPages/Cart";
+import DashboardPage from "./CustomerPages/DashboardPage"; // New Interactive Dashboard
+import HomePage from "./CustomerPages/HomePage";
 import OrderForm from "./CustomerPages/OrderForm";
 import Orders from "./CustomerPages/Orders";
-import AddProduct from "./AdminPages/AddProduct";
-import { CustomerProvider } from "./ContextApi/CustomerContext";
-import UpdateProduct from "./AdminPages/UpdateProduct";
+import ProductPage from "./CustomerPages/ProductPage";
 import SinglePageProduct from "./CustomerPages/SinglePageProduct";
-import { CartProvider } from "./ContextApi/CartContext";
 import SingleProductCart from "./CustomerPages/SingleProudctCart";
-import { OrdersProvider } from "./ContextApi/OrderContext";
+import Admin from "./Login _signup_pages/Admin";
+import Customer from "./Login _signup_pages/Customer";
+import ForgotPassword from "./Login _signup_pages/ForgotPassword";
+import LandingPage from "./Login _signup_pages/LandingPage";
+import Login from "./Login _signup_pages/Login";
+import ResetPassword from "./Login _signup_pages/PasswordReset";
+import SignUp from "./Login _signup_pages/SignUp";
+import { UserProvider } from "./Login _signup_pages/UserContext";
+import VerifyOTP from "./Login _signup_pages/VerifyOTP";
 import ProtectedRoute from "./ProtectedRoute"; // Import the ProtectedRoute component
-import Account from "./CustomerPages/Account";
-import { CountsProvider } from "./ContextApi/CountsContext";
 
 const App = () => {
   return (
@@ -62,6 +63,7 @@ const App = () => {
                     }
                   >
                     <Route path="dashboard" element={<DashBoard />} />
+                    <Route path="interactive-dashboard" element={<DashboardPage />} />
                     <Route path="product" element={<Product />} />
                     <Route path="order" element={<Order />} />
                     <Route path="stock" element={<Stock />} />

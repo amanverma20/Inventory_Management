@@ -1,0 +1,28 @@
+# Node modules
+
+# Node modules (root, backend, frontend)
+node_modules/
+Backend_Inventory/node_modules/
+Frontend_Inventory/node_modules/
+
+
+# Environment variables (root, backend, frontend)
+.env
+Backend_Inventory/.env
+Frontend_Inventory/.env
+
+# Logs
+npm-debug.log*
+yarn-debug.log*
+yarn-error.log*
+
+# Build output
+dist/
+build/
+
+# OS generated files
+.DS_Store
+Thumbs.db
+
+# VSCode settings
+.vscode/

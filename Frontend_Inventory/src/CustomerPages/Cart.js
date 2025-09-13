@@ -1,8 +1,8 @@
-import React, { useContext, useEffect, useState } from 'react';
-import CartContext from '../ContextApi/CartContext';
+import { useContext, useEffect } from 'react';
 import { MdRemoveShoppingCart } from 'react-icons/md';
-import '../CustomerPages_css/Cart.scss';
 import { useLocation, useNavigate } from 'react-router-dom';
+import CartContext from '../ContextApi/CartContext';
+import '../CustomerPages_css/Cart.scss';
 import { useUser } from '../Login _signup_pages/UserContext';
 
 const CartItem = ({ item, onRemove, onNavigate }) => {
@@ -68,7 +68,7 @@ const Cart = () => {
                                     isOutOfStock: productDetails.isOutOfStock,
                                 };
                             } else {
-                                console.warn(`Failed to fetch data for product ID ${item.productId}`);
+                                console.error(`Failed to fetch data for product ID ${item.productId}`);
                                 return { ...item, isOutOfStock: true };
                             }
                         } catch (error) {

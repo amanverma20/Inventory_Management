@@ -1,9 +1,10 @@
-import React from 'react'
 import HeroSection from '../CustomerPages/HeroSection'
+import '../CustomerPages_css/HomePage.css'
+
 const HomePage = () => {
   return (
     <div className='home-content'>
-    <HeroSection/>
+      <HeroSection />
     </div>
   )
 }
