@@ -9,8 +9,18 @@ Frontend_Inventory/node_modules/
 # Environment variables (root, backend, frontend)
 .env
 .env.local
+.env.development
+.env.production
+.env.test
+.env.*.local
 Backend_Inventory/.env
+Backend_Inventory/.env.local
+Backend_Inventory/.env.development
+Backend_Inventory/.env.production
 Frontend_Inventory/.env
+Frontend_Inventory/.env.local
+Frontend_Inventory/.env.development
+Frontend_Inventory/.env.production
 
 # Logs
 npm-debug.log*
