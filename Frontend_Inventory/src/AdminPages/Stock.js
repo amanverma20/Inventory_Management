@@ -1,4 +1,5 @@
 import React, { useEffect, useState } from 'react';
+import { getApiBase } from '../utils/apiBase';
 // Ensure the API is correctly imported, or use the fetch directly
 // import { fetchProducts } from '../api'; 
 // import '../AdminPages_css/Stock.css';
@@ -12,7 +13,7 @@ function Stock() {
     // Function to fetch data from the API
     const fetchProducts = async () => {
       try {
-        const res = await fetch('http://localhost:3000/products'); // Your API URL
+        const res = await fetch(`${getApiBase()}/products`); // Your API URL
         const result = await res.json();
 
         // Filter the products based on a 'status' if it exists in the response (if relevant for your case)

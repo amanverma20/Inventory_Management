@@ -1,6 +1,7 @@
 import React, { useContext, useEffect } from 'react';
-import OrdersContext from '../ContextApi/OrderContext';
 import '../AdminPages_css/Order.css';
+import OrdersContext from '../ContextApi/OrderContext';
+import { getApiBase } from '../utils/apiBase';
 
 const Order = () => {
     const { orders, fetchOrders, updateOrderStatus, deleteOrder } = useContext(OrdersContext);
@@ -25,7 +26,7 @@ const Order = () => {
 
     const updateStockQuantity = async (productId, quantity) => {
         try {
-            const response = await fetch(`http://localhost:3000/products/${productId}/update-stock`, {
+            const response = await fetch(`${getApiBase()}/products/${productId}/update-stock`, {
                 method: 'PATCH',
                 headers: {
                     'Content-Type': 'application/json',
