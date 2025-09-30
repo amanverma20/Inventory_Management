@@ -2,6 +2,7 @@ import { useEffect, useState } from 'react';
 import { useNavigate } from 'react-router-dom';
 import '../CustomerPages_css/FeaturedProducts.css';
 import { useUser } from '../Login _signup_pages/UserContext';
+import { getApiBase } from '../utils/apiBase';
 
 const FeaturedProducts = ({ isVisible }) => {
   const { userData } = useUser();
@@ -12,7 +13,7 @@ const FeaturedProducts = ({ isVisible }) => {
   useEffect(() => {
     const fetchFeaturedProducts = async () => {
       try {
-        const response = await fetch('http://localhost:3000/newproduct');
+        const response = await fetch(`${getApiBase()}/newproduct`);
         if (response.ok) {
           const allProducts = await response.json();
           // Get first 6 products as featured

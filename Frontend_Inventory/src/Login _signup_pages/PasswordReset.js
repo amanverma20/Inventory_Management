@@ -1,5 +1,5 @@
 import React, { useState } from 'react';
-import { useParams, useNavigate } from 'react-router-dom';
+import { useNavigate, useParams } from 'react-router-dom';
 import { ToastContainer, toast } from 'react-toastify';
 import 'react-toastify/dist/ReactToastify.css';
 import '../Login_signup_css/PasswordReset.css';
@@ -19,7 +19,7 @@ function PasswordReset() {
         }
 
         try {
-            const response = await fetch('http://localhost:3000/user/reset-password', {
+            const response = await fetch(`${getApiBase()}/user/reset-password`, {
                 method: 'POST',
                 headers: {
                     'Content-Type': 'application/json',

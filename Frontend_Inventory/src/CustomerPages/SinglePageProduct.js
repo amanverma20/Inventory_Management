@@ -1,12 +1,12 @@
 // SinglePageProduct.js
 import React, { useEffect, useState } from 'react';
-import { useParams, useNavigate } from 'react-router-dom';
-import { TbReplace } from "react-icons/tb";
 import { FaTruckFast } from "react-icons/fa6";
 import { MdOutlineHealthAndSafety } from "react-icons/md";
-import { MyImage } from './MyImage';
+import { TbReplace } from "react-icons/tb";
+import { useNavigate, useParams } from 'react-router-dom';
 import '../CustomerPages_css/SinglePageProduct.scss';
 import { useUser } from '../Login _signup_pages/UserContext';
+import { MyImage } from './MyImage';
 
 const SinglePageProduct = () => {
     const { productId } = useParams();
@@ -19,7 +19,7 @@ const SinglePageProduct = () => {
     useEffect(() => {
         const fetchProduct = async () => {
             try {
-                const response = await fetch(`http://localhost:3000/product/${productId}`);
+                const response = await fetch(`${getApiBase()}/product/${productId}`);
                 if (!response.ok) throw new Error('Failed to fetch product');
                 const data = await response.json();
                 setProduct(data);

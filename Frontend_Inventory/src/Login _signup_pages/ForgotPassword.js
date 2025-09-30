@@ -1,8 +1,8 @@
 import React, { useState } from 'react';
+import { useNavigate } from 'react-router-dom';
 import { ToastContainer, toast } from 'react-toastify';
 import 'react-toastify/dist/ReactToastify.css';
-import { useNavigate } from 'react-router-dom';
-import '../Login_signup_css/ForgotPassword.css'
+import '../Login_signup_css/ForgotPassword.css';
 function ForgotPassword() {
     const [email, setEmail] = useState('');
     const navigate = useNavigate();
@@ -16,7 +16,7 @@ function ForgotPassword() {
         }
 
         try {
-            const response = await fetch('http://localhost:3000/user/request-password-reset', {
+            const response = await fetch(`${getApiBase()}/user/request-password-reset`, {
                 method: 'POST',
                 headers: {
                     'Content-Type': 'application/json',
