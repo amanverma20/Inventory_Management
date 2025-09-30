@@ -1,6 +1,7 @@
-import React, { useState, useEffect } from 'react';
-import { useUser } from '../Login _signup_pages/UserContext'; // Adjust path
+import { useEffect, useState } from 'react';
 import '../CustomerPages_css/newAccount.css';
+import { useUser } from '../Login _signup_pages/UserContext'; // Adjust path
+import { getApiBase } from '../utils/apiBase';
 
 function Account() {
   const { userData, setUserData } = useUser();
@@ -87,7 +88,7 @@ function Account() {
     }
 
     try {
-      const response = await fetch('http://localhost:3000/user/update-profile', {
+      const response = await fetch(`${getApiBase()}/user/update-profile`, {
         method: 'PUT',
         headers: {
           'Content-Type': 'application/json',

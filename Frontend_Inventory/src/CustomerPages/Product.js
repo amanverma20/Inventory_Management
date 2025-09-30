@@ -1,4 +1,4 @@
-import { useNavigate } from 'react-router-dom'
+import { useNavigate } from 'react-router-dom';
 import { useUser } from '../Login _signup_pages/UserContext';
 export const Product = (item) => {
   const {name, imageUrls, price, category } = item;
@@ -13,7 +13,7 @@ export const Product = (item) => {
       <figure className="small-container">
         <figcaption className='caption'>
           <div>{category}</div></figcaption>
-        <img src={imageUrls[0]} alt="img" />
+        <img src={resolveAssetUrl(imageUrls[0])} alt="img" />
       </figure>
       <div className="detail">
         <div className="company">{name}</div>

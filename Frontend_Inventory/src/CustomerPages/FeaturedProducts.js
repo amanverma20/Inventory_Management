@@ -3,6 +3,7 @@ import { useNavigate } from 'react-router-dom';
 import '../CustomerPages_css/FeaturedProducts.css';
 import { useUser } from '../Login _signup_pages/UserContext';
 import { getApiBase } from '../utils/apiBase';
+import { resolveAssetUrl } from '../utils/assetUrl';
 
 const FeaturedProducts = ({ isVisible }) => {
   const { userData } = useUser();
@@ -65,7 +66,7 @@ const FeaturedProducts = ({ isVisible }) => {
             >
               <div className="product-image">
                 <img 
-                  src={product.imageUrls?.[0] || '/placeholder-image.jpg'} 
+                  src={resolveAssetUrl(product.imageUrls?.[0]) || '/placeholder-image.jpg'} 
                   alt={product.name}
                   onError={(e) => {
                     e.target.src = '/placeholder-image.jpg';

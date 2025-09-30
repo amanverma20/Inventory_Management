@@ -48,11 +48,12 @@ async function sendPasswordResetLink(email, token) {
         },
     });
 
+    const frontendUrl = process.env.FRONTEND_URL || 'http://localhost:3000';
     let mailOptions = {
         from: process.env.EMAIL,
         to: email,
         subject: 'Password Reset Request',
-        text: `To reset your password, click the link: http://localhost:3001/reset-password/${token}`,
+        text: `To reset your password, click the link: ${frontendUrl}/reset-password/${token}`,
     };
 
     try {

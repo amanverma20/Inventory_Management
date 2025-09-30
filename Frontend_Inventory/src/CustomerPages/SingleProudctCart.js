@@ -1,4 +1,4 @@
-import React, { useState, useEffect } from 'react';
+import { useEffect, useState } from 'react';
 import { useLocation, useNavigate } from 'react-router-dom';
 import '../CustomerPages_css/SingleProductCart.scss';
 import { useUser } from '../Login _signup_pages/UserContext';
@@ -43,7 +43,7 @@ const SingleProductCart = () => {
                 {imageUrls.length > 0 && (
                     <div className="cart-image-carousel">
                         <img
-                            src={imageUrls[currentImageIndex]}
+                            src={resolveAssetUrl(imageUrls[currentImageIndex])}
                             alt={`${name} - Image ${currentImageIndex + 1}`}
                             className="carousel-image"
                         />

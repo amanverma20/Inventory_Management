@@ -7,7 +7,8 @@ exports.addProduct = async (req, res) => {
         const { name, productId, price, category, quantity, description } = req.body;
 
         // Create an array of image URLs from the uploaded files
-        const imageUrls = req.files.map(file => `http://localhost:3000/uploads/${file.filename}`);
+        const baseUrl = process.env.BASE_URL || 'http://localhost:4000';
+        const imageUrls = req.files.map(file => `${baseUrl}/uploads/${file.filename}`);
 
         // Create a new product document with multiple images
         const newProduct = new Product({
@@ -124,7 +125,8 @@ exports.updateProduct = async (req, res) => {
         let imageUrls = existingImages ? JSON.parse(existingImages) : product.imageUrls;
 
         if (req.files && req.files.length > 0) {
-            const newImageUrls = req.files.map(file => `http://localhost:3000/uploads/${file.filename}`);
+            const baseUrl = process.env.BASE_URL || 'http://localhost:4000';
+            const newImageUrls = req.files.map(file => `${baseUrl}/uploads/${file.filename}`);
             imageUrls = [...imageUrls, ...newImageUrls];
         }
 

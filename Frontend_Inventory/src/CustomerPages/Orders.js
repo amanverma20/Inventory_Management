@@ -1,6 +1,7 @@
-import React, { useContext, useEffect } from 'react';
+import { useContext, useEffect } from 'react';
 import OrdersContext from '../ContextApi/OrderContext';
 import '../CustomerPages_css/Account.css';
+import { resolveAssetUrl } from '../utils/assetUrl';
 
 const orders = () => {
     const { orders, fetchOrders, updateOrderStatus } = useContext(OrdersContext);
@@ -66,7 +67,7 @@ const orders = () => {
                         <li key={order._id} className="account-order-item">
                             {order.imageUrls?.length > 0 && (
                                 <img
-                                    src={order.imageUrls[0]}
+                                    src={resolveAssetUrl(order.imageUrls[0])}
                                     alt={order.name}
                                     className="account-order-image"
                                 />

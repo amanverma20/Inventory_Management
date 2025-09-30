@@ -1,9 +1,10 @@
-import React, { useEffect, useState } from 'react';
-import { useParams, useNavigate } from 'react-router-dom';
+import { useEffect, useState } from 'react';
+import { useNavigate, useParams } from 'react-router-dom';
 import { ToastContainer, toast } from 'react-toastify';
 import 'react-toastify/dist/ReactToastify.css';
-import { useUser } from '../Login _signup_pages/UserContext';
 import '../AdminPages_css/UpdateProduct.css';
+import { useUser } from '../Login _signup_pages/UserContext';
+import { getApiBase } from '../utils/apiBase';
 
 const UpdateProduct = () => {
     const { productId } = useParams();
@@ -27,7 +28,7 @@ const UpdateProduct = () => {
     useEffect(() => {
         const fetchProduct = async () => {
             try {
-                const response = await fetch(`http://localhost:3000/product/${productId}`);
+                const response = await fetch(`${getApiBase()}/product/${productId}`);
                 if (!response.ok) throw new Error('Failed to fetch product');
                 const data = await response.json();
                 setProduct(data);
@@ -92,7 +93,7 @@ const UpdateProduct = () => {
                 });
             }
 
-            const response = await fetch(`http://localhost:3000/products/${productId}`, {
+            const response = await fetch(`${getApiBase()}/products/${productId}`, {
                 method: 'PUT',
                 body: formData
             });

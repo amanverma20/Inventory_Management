@@ -3,6 +3,7 @@ import { useLocation } from 'react-router-dom';
 import OrdersContext from '../ContextApi/OrderContext';
 import '../CustomerPages_css/Order.css';
 import { getApiBase } from '../utils/apiBase';
+import { resolveAssetUrl } from '../utils/assetUrl';
 import { loadRazorpayScript } from '../utils/rzpUtil';
 
 const OrderForm = () => {
@@ -209,7 +210,7 @@ const OrderForm = () => {
                     {error && <p className="order-form-error">{error}</p>}
                     <div className="order-item">
                         {imageUrls.length > 0 && (
-                            <img src={imageUrls[0]} alt={name} className="order-item-img" />
+                            <img src={resolveAssetUrl(imageUrls[0])} alt={name} className="order-item-img" />
                         )}
                         <div className="order-item-details">
                             <h3>{name}</h3>

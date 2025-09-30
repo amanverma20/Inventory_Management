@@ -87,7 +87,8 @@ app.listen(port, (err) => {
     console.error('Failed to start server:', err);
     process.exit(1);
   }
+  const baseUrl = process.env.BASE_URL || `http://localhost:${port}`;
   console.log(`🚀 Server running on port ${port}`);
-  console.log(`🌐 API Base URL: http://localhost:${port}`);
-  console.log(`📊 Health check: http://localhost:${port}/api/health`);
+  console.log(`🌐 API Base URL: ${baseUrl}`);
+  console.log(`📊 Health check: ${baseUrl}/api/health`);
 });

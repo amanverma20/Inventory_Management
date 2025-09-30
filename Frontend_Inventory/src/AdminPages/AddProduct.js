@@ -1,7 +1,8 @@
-import React, { useState } from "react";
+import { useState } from "react";
 import { ToastContainer, toast } from "react-toastify";
 import 'react-toastify/dist/ReactToastify.css';
 import '../AdminPages_css/AddProduct.css';
+import { getApiBase } from '../utils/apiBase';
 
 const AddProduct = () => {
   const [name, setName] = useState("");
@@ -48,7 +49,7 @@ const AddProduct = () => {
     });
 
     try {
-      const response = await fetch("http://localhost:3000/admin/add-product", {
+      const response = await fetch(`${getApiBase()}/admin/add-product`, {
         method: "POST",
         body: formData,
       });

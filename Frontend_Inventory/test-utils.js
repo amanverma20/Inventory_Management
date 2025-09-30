@@ -16,7 +16,7 @@ const testUrls = [
   '1742228421667-shopping.webp',
   '/uploads/1742228421667-shopping.webp',
   'uploads/1742228421667-shopping.webp',
-  'http://localhost:3000/1742228421667-shopping.webp'
+  `${process.env.REACT_APP_API_BASE_URL || 'http://localhost:4000'}/1742228421667-shopping.webp`
 ];
 
 console.log('\n=== Testing resolveAssetUrl() ===');
