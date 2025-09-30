@@ -4,6 +4,8 @@ import { useLocation, useNavigate } from 'react-router-dom';
 import CartContext from '../ContextApi/CartContext';
 import '../CustomerPages_css/Cart.scss';
 import { useUser } from '../Login _signup_pages/UserContext';
+import { getApiBase } from '../utils/apiBase';
+import { resolveAssetUrl } from '../utils/assetUrl';
 
 const CartItem = ({ item, onRemove, onNavigate }) => {
     const { name, price, orderQuantity, imageUrls, availableQuantity, isOutOfStock } = item;
@@ -17,7 +19,7 @@ const CartItem = ({ item, onRemove, onNavigate }) => {
             style={{ cursor: isOutOfStock ? 'not-allowed' : 'pointer' }}
         >
             <div className="combined-data">
-                <img src={imageUrls[0]} alt={name} className="cart-item-image" />
+                <img src={resolveAssetUrl(imageUrls[0])} alt={name} className="cart-item-image" />
                 <div className="cart-item-cell-name">{name}</div>
             </div>
             <div className="cart-item-cell-quantity">{orderQuantity}</div>
