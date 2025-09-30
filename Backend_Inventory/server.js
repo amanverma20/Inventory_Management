@@ -1,3 +1,4 @@
+require('dotenv').config();
 const express = require('express');
 const bodyParser = require('body-parser');
 const connectDB = require('./database/db');
@@ -10,7 +11,6 @@ const countRoutes = require('./routers/countRoutes');
 
 
 const cors = require('cors');
-require('dotenv').config();
 
 const app = express();
 const port = process.env.PORT || 4000;
@@ -39,6 +39,17 @@ app.use('/', countRoutes);
 // Sample API route for frontend
 app.get('/api/message', (req, res) => {
   res.json({ message: 'Hello from the backend!' });
+});
+
+// Health check for payment configuration
+app.get('/api/payment/health', (req, res) => {
+  const hasKeyId = !!process.env.RZP_KEY_ID;
+  const hasKeySecret = !!(process.env.RZP_KEY_SECRET || process.env.RZR_KEY_SECRET);
+  res.json({
+    ok: hasKeyId && hasKeySecret,
+    rzpKeyId: hasKeyId ? 'present' : 'missing',
+    rzpKeySecret: hasKeySecret ? 'present' : 'missing'
+  });
 });
 
 

@@ -9,7 +9,11 @@ const createOrder = async (req, res) => {
         res.status(201).json(savedOrder); // Respond with the saved order
     } catch (err) {
         console.error('Error creating order:', err);
-        res.status(500).json({ error: 'Failed to create the order' });
+        if (err && err.name === 'ValidationError') {
+            const details = Object.keys(err.errors || {}).map((k) => ({ field: k, message: err.errors[k].message }));
+            return res.status(400).json({ error: 'Validation failed', details });
+        }
+        res.status(500).json({ error: err?.message || 'Failed to create the order' });
     }
 };
 

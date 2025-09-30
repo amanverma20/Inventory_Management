@@ -2,6 +2,7 @@ import { useContext, useState } from 'react';
 import { useLocation } from 'react-router-dom';
 import OrdersContext from '../ContextApi/OrderContext';
 import '../CustomerPages_css/Order.css';
+import { getApiBase } from '../utils/apiBase';
 import { loadRazorpayScript } from '../utils/rzpUtil';
 
 const OrderForm = () => {
@@ -21,7 +22,7 @@ const OrderForm = () => {
     const [error, setError] = useState(null);
     const [paymentMethod, setPaymentMethod] = useState('Razorpay'); // Default payment method
     const [captchaInput, setCaptchaInput] = useState('');
-    const [captcha, setCaptcha] = useState(generateCaptcha());
+    const [captcha] = useState(generateCaptcha());
 
     const handlePhoneNumberChange = (e) => setPhoneNumber(e.target.value);
     const handleAddressChange = (e) => setAddress({ ...address, [e.target.name]: e.target.value });
@@ -38,41 +39,67 @@ const OrderForm = () => {
             const isScriptLoaded = await loadRazorpayScript();
             if (!isScriptLoaded) {
               console.error({ type: 'error', message: 'Failed to load Razorpay SDK. Please check your connection.' });
+              setError('Failed to load Razorpay SDK. Please check your connection.');
+              return;
+            }
+            if (!window || !window.Razorpay) {
+              console.error('Razorpay SDK not available on window');
+              setError('Payment service not available. Please refresh and try again.');
               return;
             }
 
         if (paymentMethod === 'Razorpay') {
           try {
+            const amountNumber = Number(totalPrice);
+            if (!Number.isFinite(amountNumber) || amountNumber < 1) {
+              setError('Invalid order amount. Please review your cart and try again.');
+              return;
+            }
+            const rzpKey = process.env.REACT_APP_RZP_KEY_ID;
+            if (!rzpKey) {
+              console.error('Missing REACT_APP_RZP_KEY_ID');
+              setError('Payment configuration missing. Please contact support.');
+              return;
+            }
             // create the Razorpay order on the server
-            const response = await fetch('http://localhost:3000/api/payment/create-order', {
+            const response = await fetch(`${getApiBase()}/api/payment/create-order`, {
               method: 'POST',
               headers: {
                 'Content-Type': 'application/json',
               },
               body: JSON.stringify({
-                amount: totalPrice,
+                amount: amountNumber,
                 currency: 'INR',
                 receipt: `order_${new Date().getTime()}`,
               }),
             });
       
-            if (!response.ok) {
-              throw new Error('Failed to create Razorpay order.');
+            let respJson;
+            try {
+              respJson = await response.json();
+            } catch (_) {
+              respJson = null;
+            }
+            if (!response.ok || !respJson?.success) {
+              const reason = (respJson && respJson.error) ? respJson.error : (response.statusText || 'Failed to create Razorpay order.');
+              throw new Error(reason);
             }
       
-            const { order } = await response.json();
+            const { order } = respJson;
       
             // Now that we have the order, initiate Razorpay payment
+            const digitsOnlyPhone = (phoneNumber || '').replace(/[^0-9]/g, '').slice(-10);
+            const validPhone = digitsOnlyPhone && digitsOnlyPhone.length === 10 ? digitsOnlyPhone : '';
             const razorpayOptions = {
-              key: process.env.REACT_APP_RZP_KEY_ID,
-              amount: totalPrice * 100,
+              key: rzpKey,
+              amount: amountNumber * 100,
               currency: 'INR',
               name: 'InventryPro',
               description: 'Order Payment',
               order_id: order.id,
               handler: function (response) {
                 // You should verify the payment signature in your backend
-                fetch('http://localhost:3000/api/payment/verify-payment', {
+                fetch(`${getApiBase()}/api/payment/verify-payment`, {
                   method: 'POST',
                   headers: {
                   'Content-Type': 'application/json',
@@ -102,7 +129,7 @@ const OrderForm = () => {
               prefill: {
                 name: name || 'Guest',
                 email: 'customer@example.com',
-                contact: phoneNumber,
+                contact: validPhone,
               },
               theme: {
                 color: '#F37254',
@@ -141,7 +168,7 @@ const OrderForm = () => {
         };
 
         try {
-            const response = await fetch('http://localhost:3000/api/order', {
+            const response = await fetch(`${getApiBase()}/api/order`, {
                 method: 'POST',
                 headers: {
                     'Content-Type': 'application/json',
@@ -149,12 +176,18 @@ const OrderForm = () => {
                 body: JSON.stringify(orderData),
             });
 
+            let orderJson;
+            try {
+                orderJson = await response.json();
+            } catch (_) {
+                orderJson = null;
+            }
             if (!response.ok) {
-                throw new Error(`Failed to submit order: ${response.statusText}`);
+                const reason = orderJson?.error || response.statusText || 'Failed to submit order';
+                throw new Error(`Failed to submit order: ${reason}`);
             }
 
-            const savedOrder = await response.json();
-
+            const savedOrder = orderJson;
             addOrder(savedOrder); // Add the new order to the global orders list
             setIsSubmitted(true);
         } catch (err) {

@@ -1,12 +1,13 @@
 import React, { useState } from 'react';
+import { FaEye, FaEyeSlash } from 'react-icons/fa'; // Import eye icons
 import { useNavigate } from 'react-router-dom';
-import '../App.css';
-import image1 from '../images/image2.png';
 import { ToastContainer, toast } from 'react-toastify';
 import 'react-toastify/dist/ReactToastify.css';
-import { useUser } from './UserContext';
-import { FaEye, FaEyeSlash } from 'react-icons/fa'; // Import eye icons
+import '../App.css';
+import image1 from '../images/image2.png';
 import '../Login_signup_css/Login.scss';
+import { getApiBase } from '../utils/apiBase';
+import { useUser } from './UserContext';
 
 function Login() {
     const [email, setEmail] = useState('');
@@ -26,7 +27,7 @@ function Login() {
         }
 
         try {
-            const response = await fetch('http://localhost:3000/user/login', {
+            const response = await fetch(`${getApiBase()}/user/login`, {
                 method: 'POST',
                 headers: {
                     'Content-Type': 'application/json',
@@ -75,13 +76,15 @@ function Login() {
             <div className="right-side">
                 <h2>Welcome</h2>
 
-                <form onSubmit={handleSubmit}>
+                <form onSubmit={handleSubmit} autoComplete="on">
                     <input
                         type="email"
                         placeholder="Email Address"
                         value={email}
                         onChange={(e) => setEmail(e.target.value)}
                         className="email-input"
+                        name="username"
+                        autoComplete="username email"
                     />
                     
                     <div className="password-input-group">
@@ -91,6 +94,8 @@ function Login() {
                             value={password}
                             onChange={(e) => setPassword(e.target.value)}
                             className="password-input"
+                            name="current-password"
+                            autoComplete="current-password"
                         />
                         <span className="password-toggle-icon" onClick={togglePasswordVisibility}>
                             {showPassword ? <FaEyeSlash /> : <FaEye />}
