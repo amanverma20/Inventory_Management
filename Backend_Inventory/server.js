@@ -32,21 +32,7 @@ app.use('/uploads', express.static('uploads')); // Serve images from the uploads
 // Connect to MongoDB
 connectDB();
 
-// Use Routers
-app.use('/user', userRoutes);
-app.use('/admin', productRoutes); // Add product routes for admin portal
-app.use('/', productRoutes);
-app.use('/api', orderRoutes);
-app.use('/api/payment', paymentRoutes); // rzp routes
-app.use('/', countRoutes);
-
-
-// Sample API route for frontend
-app.get('/api/message', (req, res) => {
-  res.json({ message: 'Hello from the backend!' });
-});
-
-// Health check endpoint
+// Health check endpoints (place before other routes to avoid conflicts)
 app.get('/api/health', (req, res) => {
   res.json({ 
     status: 'OK', 
@@ -55,6 +41,19 @@ app.get('/api/health', (req, res) => {
     port: port
   });
 });
+
+// Sample API route for frontend
+app.get('/api/message', (req, res) => {
+  res.json({ message: 'Hello from the backend!' });
+});
+
+// Use Routers
+app.use('/user', userRoutes);
+app.use('/admin', productRoutes); // Add product routes for admin portal
+app.use('/', productRoutes);
+app.use('/api', orderRoutes);
+app.use('/api/payment', paymentRoutes); // rzp routes
+app.use('/', countRoutes);
 
 // Health check for payment configuration
 app.get('/api/payment/health', (req, res) => {

@@ -8,6 +8,7 @@ Frontend_Inventory/node_modules/
 
 # Environment variables (root, backend, frontend)
 .env
+.env.local
 Backend_Inventory/.env
 Frontend_Inventory/.env
 
