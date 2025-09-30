@@ -52,7 +52,7 @@ router.get('/users/count', async (req, res) => {
     // Count the length of the array of distinct emails
     const customerCount = customerEmails.length;
 
-    res.json({ totalCustomers: customerCount });
+    res.json({ count: customerCount });
   } catch (err) {
     console.error("Error fetching customer count:", err);
     res.status(500).send('Server Error');

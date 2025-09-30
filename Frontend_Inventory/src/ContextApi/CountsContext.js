@@ -1,4 +1,4 @@
-import React, { createContext, useEffect, useState } from 'react';
+import { createContext, useEffect, useMemo, useState } from 'react';
 import { getApiBase } from '../utils/apiBase';
 
 export const CountsContext = createContext();
@@ -26,8 +26,20 @@ export const CountsProvider = ({ children }) => {
         const recentOrdersRes = await fetch(`${getApiBase()}/orders/recent-count`); // Endpoint for recent orders
 
         // Check if all the responses are OK
-        if (!productsRes.ok || !ordersRes.ok || !customersRes.ok || !lowStockRes.ok || !recentOrdersRes.ok) {
-          throw new Error('Failed to fetch counts');
+        if (!productsRes.ok) {
+          throw new Error(`Failed to fetch products count: ${productsRes.status}`);
+        }
+        if (!ordersRes.ok) {
+          throw new Error(`Failed to fetch orders count: ${ordersRes.status}`);
+        }
+        if (!customersRes.ok) {
+          throw new Error(`Failed to fetch customers count: ${customersRes.status}`);
+        }
+        if (!lowStockRes.ok) {
+          throw new Error(`Failed to fetch low stock count: ${lowStockRes.status}`);
+        }
+        if (!recentOrdersRes.ok) {
+          throw new Error(`Failed to fetch recent orders count: ${recentOrdersRes.status}`);
         }
 
         // Parsing the JSON response from each endpoint
@@ -41,7 +53,7 @@ export const CountsProvider = ({ children }) => {
         setCounts({
           totalProducts: productsData.count,
           totalOrders: ordersData.count,
-          totalCustomers: customersData.totalCustomers,
+          totalCustomers: customersData.count,
           lowStock: lowStockData.count, // Set low stock count
           recentOrders: recentOrdersData.count, // Set recent orders count
         });
@@ -55,8 +67,14 @@ export const CountsProvider = ({ children }) => {
     fetchCounts();
   }, []); // Empty dependency array means this effect runs only once after initial render
 
+  const contextValue = useMemo(() => ({
+    counts,
+    loading,
+    error
+  }), [counts, loading, error]);
+
   return (
-    <CountsContext.Provider value={{ counts, loading, error }}>
+    <CountsContext.Provider value={contextValue}>
       {children}
     </CountsContext.Provider>
   );

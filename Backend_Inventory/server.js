@@ -46,6 +46,16 @@ app.get('/api/message', (req, res) => {
   res.json({ message: 'Hello from the backend!' });
 });
 
+// Health check endpoint
+app.get('/api/health', (req, res) => {
+  res.json({ 
+    status: 'OK', 
+    message: 'Server is running',
+    timestamp: new Date().toISOString(),
+    port: port
+  });
+});
+
 // Health check for payment configuration
 app.get('/api/payment/health', (req, res) => {
   const hasKeyId = !!process.env.RZP_KEY_ID;
@@ -58,7 +68,27 @@ app.get('/api/payment/health', (req, res) => {
 });
 
 
+// Error handling middleware
+app.use((err, req, res, next) => {
+  console.error('Error:', err.stack);
+  res.status(500).json({ 
+    message: 'Something went wrong!', 
+    error: process.env.NODE_ENV === 'development' ? err.message : 'Internal server error'
+  });
+});
+
+// 404 handler
+app.use('*', (req, res) => {
+  res.status(404).json({ message: 'Route not found' });
+});
+
 // Start the server
-app.listen(port, () => {
-    console.log(`Server running on port ${port}`);
+app.listen(port, (err) => {
+  if (err) {
+    console.error('Failed to start server:', err);
+    process.exit(1);
+  }
+  console.log(`🚀 Server running on port ${port}`);
+  console.log(`🌐 API Base URL: http://localhost:${port}`);
+  console.log(`📊 Health check: http://localhost:${port}/api/health`);
 });

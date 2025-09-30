@@ -1,8 +1,8 @@
-import React, { useState, useEffect, useContext } from "react";
-import { useUser } from "../Login _signup_pages/UserContext";
+import { useContext, useEffect, useState } from "react";
+import "../AdminPages_css/DashBoard.css";
 import { CountsContext } from "../ContextApi/CountsContext";
 import homeImage from "../images/homeimage.png";
-import "../AdminPages_css/DashBoard.css";
+import { useUser } from "../Login _signup_pages/UserContext";
 
 const Dashboard = () => {
   const { userData } = useUser();
@@ -33,11 +33,27 @@ const Dashboard = () => {
   }
 
   if (loading) {
-    return <div>Loading counts...</div>;
+    return (
+      <div className="dashboard-container">
+        <div style={{ textAlign: 'center', padding: '50px' }}>
+          <h3>Loading dashboard data...</h3>
+          <p>Please wait while we fetch your inventory information.</p>
+        </div>
+      </div>
+    );
   }
 
   if (error) {
-    return <div>Error: {error}</div>;
+    return (
+      <div className="dashboard-container">
+        <div style={{ textAlign: 'center', padding: '50px', color: 'red' }}>
+          <h3>Dashboard Error</h3>
+          <p>Error: {error}</p>
+          <p>Please check your internet connection and try refreshing the page.</p>
+          <button onClick={() => window.location.reload()}>Refresh Page</button>
+        </div>
+      </div>
+    );
   }
 
   return (
